@@ -1,0 +1,49 @@
+version: "3.3"
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/Nginx.Dockerfile
+    ports:
+        - 8000:80
+    links:
+        - fpm
+    volumes:
+        - ./:/var/www/laravel-docker
+  fpm:
+    build:
+      context: .
+      dockerfile: docker/Fpm.Dockerfile
+    volumes:
+      - ./:/var/www/laravel-docker
+    links:
+        - db
+  db:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - ./postgresql/data:/var/lib/postgresq/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: laravel
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+#  mysql:
+#    image: mysql:5.7
+#    ports:
+#        - 33061:3306
+#    environment:
+#        - MYSQL_ROOT_PASSWORD=root
+#        - MYSQL_DATABASE=laravel
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgaAdmin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: kosolapimedved@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: password

@@ -21,3 +21,15 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+app/Http/Middleware/
+config/
+storage/framework/
+tests/
+app/Providers/
+app/Models/User.php
+app/Validators/EmployeeValidator.php
+database/factories/UserFactory.php
+app/Http/Kernel.php
+app/Console/Kernel.php
+app/Exceptions/Handler.php
+vite.config.js
